@@ -1,0 +1,48 @@
+.panels {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  perspective: 550px;
+  color: #fff;
+}
+
+.panel-list {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+}
+
+.panel-item {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  width: 300px;
+  height: 300px;
+  opacity: 0.3;
+  transition: 0.5s;
+  margin: -150px 0 0 -150px;
+}
+
+.panel-side {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 300px;
+  text-align: center;
+  background-size: contain;
+  backface-visibility: hidden;
+  transition: 0.5s;
+}
+
+.panel-side.front {
+  background-color: red;
+}
+
+.panel-side.back {
+  background-color: blue;
+}
