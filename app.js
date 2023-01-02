@@ -11,11 +11,12 @@ let uniteDegree = 360 / panelNum;
 let clickedPanel;
 let currentClickPanel;
 let isClick = false;
+let seePanel;
 
 let startX;
 let endX;
 let isDown = false;
-let walk;
+let walk = 0;
 
 function setElem() {
   panelListElem = document.querySelector(".panel-list");
@@ -32,14 +33,21 @@ function setPanel() {
 }
 
 function clickPanel(clickedPanel) {
+  if (-walk <= 0) {
+    seePanel = Math.abs(walk);
+  } else {
+    seePanel = 360 - Math.abs(walk);
+  }
   if (!isClick) {
-    panelItemElem[clickedPanel].style.transform = `rotateY(0)`;
-    isClick = true;
+    panelItemElem[clickedPanel].style.transform = `rotateY(${Math.round(
+      seePanel
+    )}deg)`;
 
     const timeId = setTimeout(() => {
       panelItemElem[clickedPanel].classList.add("active");
       clearTimeout(timeId);
     }, 500);
+    isClick = true;
     currentClickPanel = clickedPanel;
   } else if (isClick === true && clickedPanel === currentClickPanel) {
     const timeId = setTimeout(() => {

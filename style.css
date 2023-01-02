@@ -1,3 +1,11 @@
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #fff;
+}
+
 .panels {
   position: fixed;
   top: 0;
@@ -59,6 +67,10 @@
   animation: rotateAni 1s infinite linear;
 }
 
+.panel-side.front {
+  pointer-events: none;
+}
+
 .panel-side.back {
-  background-color: blue;
+  pointer-events: none;
 }
