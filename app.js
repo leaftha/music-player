@@ -15,6 +15,7 @@ let isClick = false;
 let startX;
 let endX;
 let isDown = false;
+let walk;
 
 function setElem() {
   panelListElem = document.querySelector(".panel-list");
@@ -52,6 +53,26 @@ function clickPanel(clickedPanel) {
   }
 }
 
+function DragPanel() {
+  panelsElem.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX - panelsElem.offsetLeft;
+  });
+  panelsElem.addEventListener("mouseleave", () => {
+    isDown = false;
+  });
+  panelsElem.addEventListener("mouseup", () => {
+    isDown = false;
+  });
+  panelsElem.addEventListener("mousemove", (e) => {
+    if (isDown) {
+      const x = e.pageX - panelsElem.offsetLeft;
+      walk = (x - startX) / 5;
+      panelListElem.style.transform = `rotateY(${-walk}deg)`;
+    }
+  });
+}
+
 window.addEventListener("load", () => {
   setElem();
   setPanel();
@@ -62,5 +83,5 @@ window.addEventListener("load", () => {
       clickPanel(clickedPanel);
     });
   });
-
+  DragPanel();
 });

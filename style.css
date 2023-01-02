@@ -9,7 +9,6 @@
 }
 
 .panel-list {
-  position: absolute;
   transform-style: preserve-3d;
   transition: 0.5s;
 }
