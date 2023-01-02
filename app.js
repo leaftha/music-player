@@ -1,6 +1,9 @@
+import { data } from "./data.js";
+
 let panelListElem;
 let panelItemElem;
 let panelsElem;
+let bodyElme;
 
 let dist;
 let panelNum = 10;
@@ -14,15 +17,19 @@ let isClick = false;
 let seePanel;
 
 let startX;
-let endX;
 let isDown = false;
 let walk = 0;
+
+let panelview;
+let musicElem;
 
 function setElem() {
   panelListElem = document.querySelector(".panel-list");
   panelItemElem = document.querySelectorAll(".panel-item");
   panelsElem = document.querySelector(".panels");
+  bodyElme = document.querySelector("body");
 }
+
 function setPanel() {
   dist = panelSize / 2 / Math.tan(uniteRadian / 2) + panelSize * 0.65;
   for (let i = 0; i < panelItemElem.length; i++) {
@@ -30,6 +37,20 @@ function setPanel() {
       uniteDegree * i
     }deg) translateZ(${-dist}px)`;
   }
+}
+
+function PanelView(clickedPanel) {
+  if (isClick) {
+    musicElem = document.createElement("div");
+    bodyElme.append(musicElem);
+    musicElem.classList.add("music");
+    musicElem.innerHTML = ` 
+        <audio autoplay>
+            <source src="${data[clickedPanel].music}" />
+        </audio>
+        `;
+  }
+  bodyElme.style.backgroundColor = data[clickedPanel].color;
 }
 
 function clickPanel(clickedPanel) {
@@ -45,18 +66,21 @@ function clickPanel(clickedPanel) {
 
     const timeId = setTimeout(() => {
       panelItemElem[clickedPanel].classList.add("active");
+      PanelView(clickedPanel);
       clearTimeout(timeId);
     }, 500);
     isClick = true;
     currentClickPanel = clickedPanel;
   } else if (isClick === true && clickedPanel === currentClickPanel) {
+    panelItemElem[clickedPanel].classList.remove("active");
     const timeId = setTimeout(() => {
       panelItemElem[clickedPanel].style.transform = `rotateY(${
         uniteDegree * currentClickPanel
       }deg) translateZ(${-dist}px)`;
+      musicElem.remove();
+      bodyElme.style.backgroundColor = "#fff";
       clearTimeout(timeId);
     }, 500);
-    panelItemElem[clickedPanel].classList.remove("active");
     isClick = false;
   }
 }
@@ -84,7 +108,6 @@ function DragPanel() {
 window.addEventListener("load", () => {
   setElem();
   setPanel();
-
   panelItemElem.forEach((item) => {
     item.addEventListener("click", (e) => {
       clickedPanel = e.target.dataset.panelNum;

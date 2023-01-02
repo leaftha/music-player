@@ -4,6 +4,7 @@ body {
   -ms-user-select: none;
   user-select: none;
   background: #fff;
+  transition: 0.5s;
 }
 
 .panels {
@@ -69,8 +70,15 @@ body {
 
 .panel-side.front {
   pointer-events: none;
+  z-index: -1000;
 }
 
 .panel-side.back {
   pointer-events: none;
+}
+
+.music {
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1000;
 }
