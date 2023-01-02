@@ -37,6 +37,7 @@
   background-size: contain;
   backface-visibility: hidden;
   transition: 0.5s;
+  pointer-events: none;
 }
 
 .panel-side.front {
